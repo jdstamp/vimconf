@@ -136,6 +136,8 @@ if !v:shell_error
     endif
 endif
 
+Plug 'tpope/vim-commentary'
+Plug 'ymc-core/YouCompleteMe'
 
 " Go (order matters?)
 " let has_go = system("which go")
