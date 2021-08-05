@@ -140,7 +140,7 @@ if !v:shell_error
 endif
 
 Plug 'tpope/vim-commentary'
-Plug 'ymc-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'jalvesaq/Nvim-R'
 Plug 'gaalcaras/ncm-R'
 

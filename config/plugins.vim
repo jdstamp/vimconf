@@ -225,7 +225,7 @@ if v:version >= 704
         call mkdir(ultisnips_dir, "p", 0755)
     endif
     set runtimepath+=ultisnips_dir
-    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsExpandTrigger="<c-t>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
     let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
