@@ -1,5 +1,8 @@
 " ===================================================  GLOBAL SETTINGS
 "
+let g:python3_host_prog="/usr/bin/python3"
+"
+"
 let g:vimroot=expand($HOME . "/.vim")
 
 "| PLUGINS START
@@ -136,6 +139,10 @@ if !v:shell_error
     endif
 endif
 
+Plug 'tpope/vim-commentary'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'jalvesaq/Nvim-R'
+Plug 'gaalcaras/ncm-R'
 
 " Go (order matters?)
 " let has_go = system("which go")
