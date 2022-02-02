@@ -5,7 +5,7 @@ set background=dark
 "suggestions
 syntax on
 set noswapfile
-set spell spelllang=en_us
+"set spell spelllang=en_us
 nnoremap <leader>s :set spell!
 
 if !empty($CONEMUBUILD)
@@ -141,9 +141,9 @@ noremap <Leader>p "+p
 " F10 Toggle distraction-free editing (Goyo)
 
 "go to previous tab
-noremap <S-z> :tabp<CR>
+noremap <S-h> :tabp<CR>
 "go to next tab
-noremap <S-x> :tabn<CR>
+noremap <S-l> :tabn<CR>
 "open new tab
 noremap <C-n> :tabnew<CR>
 "go to tab by number

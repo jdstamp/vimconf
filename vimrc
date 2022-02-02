@@ -181,6 +181,10 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 Plug 'tfnico/vim-gradle', { 'for': 'java' }
 Plug 'tpope/vim-classpath', { 'for': 'java' }
 
+" LaTeX
+Plug 'lervag/vimtex'
+let g:Tex_BibtexFlavor = 'biber'
+
 " other
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
@@ -191,6 +195,13 @@ Plug 'msteinert/vim-ragel', { 'for': 'ragel' }
 Plug 'raichoo/smt-vim'
 Plug 'tomlion/vim-solidity'
 Plug 'ElmCast/elm-vim'
+
+" MATLAB
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
+Plug 'daeyun/vim-matlab', { 'do': function('DoRemote') }
 
 " wrap it up
 call plug#end()
