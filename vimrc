@@ -1,6 +1,6 @@
 " ===================================================  GLOBAL SETTINGS
 "
-let g:python3_host_prog="/usr/bin/python3"
+let g:python3_host_prog="/gpfs/runtime/opt/python/3.9.0/bin/python3"
 "
 "
 let g:vimroot=expand($HOME . "/.vim")
