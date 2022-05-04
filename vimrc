@@ -1,4 +1,4 @@
-" ===================================================  GLOBAL SETTINGS
+"split ===================================================  GLOBAL SETTINGS
 "
 let g:python3_host_prog="/usr/bin/python3"
 "
@@ -183,7 +183,6 @@ Plug 'tpope/vim-classpath', { 'for': 'java' }
 
 " LaTeX
 Plug 'lervag/vimtex'
-let g:Tex_BibtexFlavor = 'biber'
 
 " other
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
@@ -222,3 +221,85 @@ execute "source ".fnameescape(misc_config)
 " user settings - this will be ignored by git
 let user_config = expand(g:vimroot . "/config/user.vim")
 execute "source ".fnameescape(user_config)
+
+
+" -----------------------------------------------------------------------------
+"  VIMTEX OPTIONS
+"  ----------------------------------------------------------------------------
+if has('unix')
+    if has('mac')
+        let g:vimtex_view_method = "skim"
+        let g:vimtex_view_general_viewer
+                \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+        let g:vimtex_view_general_options = '-r @line @pdf @tex'
+
+        " This adds a callback hook that updates Skim after compilation
+        " let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
+        function! UpdateSkim(status)
+            if !a:status | return | endif
+
+            let l:out = b:vimtex.out()
+            let l:tex = expand('%:p')
+            let l:cmd = [g:vimtex_view_general_viewer, '-r']
+            if !empty(system('pgrep Skim'))
+            call extend(l:cmd, ['-g'])
+            endif
+            if has('nvim')
+            call jobstart(l:cmd + [line('.'), l:out, l:tex])
+            elseif has('job')
+            call job_start(l:cmd + [line('.'), l:out, l:tex])
+            else
+            call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' '))
+            endif
+        endfunction
+    else
+        let g:latex_view_general_viewer = "zathura"
+        let g:vimtex_view_method = "zathura"
+    endif
+elseif has('win32')
+
+endif
+
+let g:tex_flavor = "lualatex"
+let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_quickfix_mode = 2
+if has('nvim')
+    let g:vimtex_compiler_progname = 'nvr'
+endif
+
+let g:vimtex_compiler_latexmk = {
+  \ 'build_dir' : 'build',
+  \ 'callback' : 1,
+  \ 'continuous' : 1,
+  \ 'executable' : 'latexmk',
+  \ 'hooks' : [function('UpdateSkim')],
+  \   'options' : [
+  \       '-file-line-error',
+  \       '-synctex=1',
+  \       '-interaction=nonstopmode',
+  \       '-shell-escape',
+  \       '-pdflatex=lualatex',
+  \       '-output-directory=build',
+  \     ],
+  \}
+
+
+" Simple Config
+let g:Tex_BibtexFlavor = 'biber'
+" let g:Tex_CompileRule_bib = 'biber $*'
+" let g:Tex_CompileRule_pdf = 'mkdir -p build && pdflatex -output-directory=build -interaction=nonstopmode $* && cp *.bib build && cd build && bibtex %:r && cd .. && pdflatex -output-directory=build -interaction=nonstopmode $* && mv build/$*.pdf .'
+" let g:tex_flavor='latex' # Default tex file format
+" let g:vimtex_view_method = 'skim' # Choose which program to use to view PDF file
+" let g:vimtex_view_skim_sync = 1 # Value 1 allows forward search after every successful compilation
+" let g:vimtex_view_skim_activate = 1 # Value 1 allows change focus to skim after command `:VimtexView` is given
+" let g:vimtex_compiler_latexmk = {
+    " \ 'build_dir' : 'build',
+    " \ }
+
+" One of the neosnippet plugins will conceal symbols in LaTeX which is
+" confusing
+let g:tex_conceal = ""
+let g:vimtex_quickfix_ignore_filters = [
+      \ 'Underfull',
+      \ 'Overfull',
+      \]
